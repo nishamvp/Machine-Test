@@ -12,12 +12,12 @@ const userSchema =  new mongoose.Schema({
         require: true
     },
 
-    image: {
+    address: {
         type: String,
         require: true
     },
 
-    address: {
+    file: {
         type: String,
         require: true
     },

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./dashboard.css";
 import axios from "axios";
+import {useNavigate} from 'react-router-dom';
 
 export default function Dashboard() {
   const [Data, setData] = useState("");
@@ -74,11 +75,16 @@ export default function Dashboard() {
     }
   }
 
+  const navigate = useNavigate();
+
   return (
     <div className="App">
       <div id="sidebar" className="neumorphic">
         <ul className="menu">
           <li>Dashboard</li>
+          <li onClick={()=> {
+            navigate('/profile')
+          }}>Profile</li>
           <li style={{color: 'red'}} onClick={()=> {
             localStorage.removeItem("token");
             window.location.reload();

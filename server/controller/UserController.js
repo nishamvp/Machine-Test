@@ -18,6 +18,12 @@ module.exports.getUser = async (req, res) => {
     }
 }
 
+module.exports.getUserProfile = async (req, res) => {
+    const { name } = req.body;
+    const data = await UserModel.findOne({name: name});
+    res.json(data);
+}
+
 module.exports.saveUser = async (req, res) => {
     
     const { name, password, address } = req.body;

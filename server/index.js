@@ -7,6 +7,7 @@ const cors = require('cors');
 
 const userRoutes = require('./routes/UserRoutes')
 const dataRoutes = require('./routes/DataRoutes')
+const upload = require('./routes/upload')
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use(cors(corsOptions));
 
 app.use(userRoutes);
 app.use(dataRoutes);
+app.use(upload);
 
 app.use('/uploads', express.static('uploads'));
 

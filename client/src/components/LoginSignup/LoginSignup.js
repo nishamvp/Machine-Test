@@ -26,33 +26,6 @@ export default function LoginSignup() {
     });
   }, []);
 
-  async function signupUser(e) {
-    e.preventDefault();
-
-    const name = signupName;
-    const password = signupPassword;
-    const address = signupAddress;
-
-    const response = await fetch("http://localhost:5000/api/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name,
-        password,
-        address,
-      }),
-    });
-
-    const data = await response.json();
-
-    if (data.status === "ok") {
-      alert("User Registered Successfuly");
-      window.location.reload();
-
-    }
-  }
 
   async function loginUser(e) {
     e.preventDefault();
@@ -83,6 +56,41 @@ export default function LoginSignup() {
     }
   }
 
+  const [image, setImage] = useState({ preview: '', data: '' });
+
+  const handleFileChange = (e) => {
+    const img = {
+      preview: URL.createObjectURL(e.target.files[0]),
+      data: e.target.files[0],
+    }
+    setImage(img);
+  }
+  const signupUser = async (e) => {
+    e.preventDefault()
+    let formData = new FormData()
+    formData.append('name', signupName)
+    formData.append('address', signupAddress)
+    formData.append('password', signupPassword)
+
+    formData.append('file', image.data)
+    const response = await fetch('http://localhost:5000/upload', {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'x-access-token': localStorage.getItem('token'),
+      },
+    },);
+
+    if (response.status === 200) {
+      alert("Login Successfull")
+      window.location.reload();
+    }
+    else {
+      alert("Something went wrong")
+      window.location.reload();
+    }
+  }
+
   return (
     <div className="container" id="container">
       <div className="form-container sign-up-container">
@@ -94,20 +102,25 @@ export default function LoginSignup() {
           <h1>Create Account</h1>
           <span>Signup by providing credentials below</span>
           <input
-            typ="text"
+            type="text"
             value={signupName}
             placeholder="Name"
             onChange={(e) => {
               setSignupName(e.target.value);
             }}
+            required
           />
           <input
-            typ="text"
+             type='file' name='file' id="file" onChange={handleFileChange} required
+          />
+          <input
+            type="text"
             value={signupAddress}
             placeholder="Address"
             onChange={(e) => {
               setSignupAddress(e.target.value);
             }}
+            required
           />
           <input
             type="password"
@@ -116,6 +129,7 @@ export default function LoginSignup() {
             onChange={(e) => {
               setSignupPassword(e.target.value);
             }}
+            required
           />
           <button>Sign Up</button>
         </form>
@@ -135,6 +149,7 @@ export default function LoginSignup() {
             onChange={(e) => {
               setLoginName(e.target.value);
             }}
+            required
           />
           <input
             type="password"
@@ -143,8 +158,8 @@ export default function LoginSignup() {
             onChange={(e) => {
               setLoginPassword(e.target.value);
             }}
+            required
           />
-          <Link to={"home"}>Forgot your password?</Link>
           <button>Sign In</button>
         </form>
       </div>
