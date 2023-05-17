@@ -10,9 +10,7 @@ module.exports.saveData = async (req, res) => {
 }
 
 module.exports.getData = async (req, res) => {
-    DataModel.find({ })
-        .then(()=> {res.json({success: true})})
-        .catch((err)=> console.log(err));
-}
-
+    const data = await DataModel.find();
+    res.json(data);
+  };
 

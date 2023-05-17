@@ -1,37 +1,38 @@
-import React, { useEffect } from 'react'
-import './dashboard.css'
+import React, { useEffect, useState } from "react";
+import "./dashboard.css";
+import axios from "axios";
 
 export default function Dashboard() {
+  const [Data, setData] = useState("");
 
   useEffect(() => {
-    const toggleButton = document.getElementById('toggle');
-    const sidebar = document.getElementById('sidebar');
+    axios
+      .get("http://localhost:5000/api/get", {
+        headers: {
+          "x-access-token": localStorage.getItem("token"),
+        },
+      })
+      .then(function (response) {
+        setData(response.data);
+      });
+  }, []);
 
-        toggleButton.addEventListener('click', function() {
-          sidebar.classList.toggle('hide');
-          toggleButton.classList.toggle('hide');
-        })
-
-  }, [])
-  
-
-    return (
-      <div className="App">
+  return (
+    <div className="App">
       <div id="sidebar" className="neumorphic">
-      <ul className="menu">
-        <li>Dashboard</li>
-      </ul>
+        <ul className="menu">
+          <li>Dashboard</li>
+        </ul>
+      </div>
+      <div id="content">
+        {Data
+          ? Data.map((item) => (
+              <div key={item._id} className="dataContainer">
+                <div>{item.content}</div>
+              </div>
+            ))
+          : ""}
+      </div>
     </div>
-    <div id="content">
-      <h1>Collapsible Sidebar Example</h1>
-        <p>Click the toggle button to hide/show the sidebar.</p>
-  </div>
-  <div id="toggle" className="neumorphic">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-    </div>
-    
-    )
-};
+  );
+}
