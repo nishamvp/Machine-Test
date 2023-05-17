@@ -4,6 +4,7 @@ import axios from "axios";
 
 export default function Dashboard() {
   const [Data, setData] = useState("");
+  const [formContent, setFormContent] = useState("");
 
   useEffect(() => {
     axios
@@ -33,6 +34,21 @@ export default function Dashboard() {
     }
   }
 
+  function submitData(e) {
+    const content = formContent;
+    e.preventDefault();
+    axios
+      .post("http://localhost:5000/api/save", {content}, {
+        headers: {
+          "x-access-token": localStorage.getItem("token"),
+        },
+      })
+      .then(function (response) {
+        alert(response.data.message);
+        window.location.reload();
+      });
+  }
+
   return (
     <div className="App">
       <div id="sidebar" className="neumorphic">
@@ -49,6 +65,10 @@ export default function Dashboard() {
               </div>
             ))
           : ""}
+          <form onSubmit={(e)=> submitData(e)} className="dataContainer2">
+            <textarea placeholder="Enter Data" value={formContent} onChange={(e)=> setFormContent(e.target.value)}></textarea>
+            <button type="submit">SUBMIT</button>
+          </form>
       </div>
     </div>
   );

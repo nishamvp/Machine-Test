@@ -62,6 +62,48 @@ body {
   padding: 0px 20px;
 }
 
+.dataContainer2 {
+  width: 400px;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between !important;
+  background: #FF4B2B;
+  min-height: 40px;
+  border-radius: 20px;
+  margin-top: 20px;
+  border: 1px solid grey;
+  padding: 0 !important;
+}
+
+.dataContainer2 textarea {
+  width:80%;
+  height: 100%;
+  resize: none;
+  background: #eee;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  padding: 10px;
+  border: none;
+  outline: none;
+}
+
+.dataContainer2 button {
+  width: 20%;
+  height: 100%;
+  border: none;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0,0,0,0) !important;
+  font-size: 16px;
+  font-weight: bolder;
+  color: #fff;
+}
+
 /* Neumorphic Effect */
 .neumorphic {
   background-color: #f4f4f4;

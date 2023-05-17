@@ -5,7 +5,7 @@ module.exports.saveData = async (req, res) => {
     const { content } = req.body;
     DataModel
         .create({ content })
-        .then(()=> {res.json({status: 'ok'})})
+        .then(()=> {res.json({message: "Added Successfully"})})
         .catch((err)=> console.log(err));
 }
 
