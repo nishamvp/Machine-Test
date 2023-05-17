@@ -54,11 +54,12 @@ body {
   height: auto;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   background: #eee;
   min-height: 40px;
   border-radius: 20px;
   margin-top: 20px;
+  padding: 0px 20px;
 }
 
 /* Neumorphic Effect */

@@ -14,3 +14,13 @@ module.exports.getData = async (req, res) => {
     res.json(data);
   };
 
+  module.exports.deleteData = async (req, res) => {
+    
+    const { id } = req.body;
+    console.log(id)
+    DataModel
+        .findByIdAndDelete(id)
+        .then(()=> {res.json({message: 'Deleted Successfully!'})})
+        .catch((err)=> console.log(err));
+}
+
