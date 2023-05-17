@@ -2,7 +2,8 @@ const DataModel = require("../models/DataModel");
 
 module.exports.saveData = async (req, res) => {
   const { content } = req.body;
-  DataModel.create({ content })
+  const { name } = req.body;
+  DataModel.create({ content, name })
     .then(() => {
       res.json({ message: "Added Successfully" });
     })
@@ -10,7 +11,8 @@ module.exports.saveData = async (req, res) => {
 };
 
 module.exports.getData = async (req, res) => {
-  const data = await DataModel.find();
+  const { name } = req.body;
+  const data = await DataModel.find({name: name});
   res.json(data);
 };
 

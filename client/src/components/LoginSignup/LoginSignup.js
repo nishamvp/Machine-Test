@@ -50,6 +50,7 @@ export default function LoginSignup() {
     if (data.status === "ok") {
       alert("User Registered Successfuly");
       window.location.reload();
+
     }
   }
 
@@ -75,13 +76,10 @@ export default function LoginSignup() {
     if (data.user) {
       localStorage.setItem("token", data.user);
       alert('Login Successful')
+      localStorage.setItem("name", name)
       Navigate('/');
     } else {
       alert("Credential Invalid");
-    }
-
-    if (data.role) {
-      localStorage.setItem("role", data.role);
     }
   }
 
@@ -112,7 +110,7 @@ export default function LoginSignup() {
             }}
           />
           <input
-            typ="password"
+            type="password"
             value={signupPassword}
             placeholder="Password"
             onChange={(e) => {

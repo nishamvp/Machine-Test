@@ -7,6 +7,11 @@ const dataSchema =  new mongoose.Schema({
         require: true
     },
 
+    name: {
+        type: String,
+        required: true
+    }
+
 })
 
 module.exports = mongoose.model("data", dataSchema)

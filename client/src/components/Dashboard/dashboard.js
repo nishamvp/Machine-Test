@@ -7,8 +7,9 @@ export default function Dashboard() {
   const [formContent, setFormContent] = useState("");
 
   useEffect(() => {
+    const name = localStorage.getItem("name");
     axios
-      .get("http://localhost:5000/api/get", {
+      .post("http://localhost:5000/api/get", {name}, {
         headers: {
           "x-access-token": localStorage.getItem("token"),
         },
@@ -36,9 +37,10 @@ export default function Dashboard() {
 
   function submitData(e) {
     const content = formContent;
+    const name = localStorage.getItem("name");
     e.preventDefault();
     axios
-      .post("http://localhost:5000/api/save", { content }, {
+      .post("http://localhost:5000/api/save", { content, name }, {
         headers: {
           "x-access-token": localStorage.getItem("token"),
         },
@@ -77,9 +79,17 @@ export default function Dashboard() {
       <div id="sidebar" className="neumorphic">
         <ul className="menu">
           <li>Dashboard</li>
+          <li style={{color: 'red'}} onClick={()=> {
+            localStorage.removeItem("token");
+            window.location.reload();
+          }}>Logout</li>
         </ul>
       </div>
       <div id="content">
+      <form onSubmit={(e) => submitData(e)} className="dataContainer2">
+        <textarea placeholder="Enter Data" value={formContent} onChange={(e) => setFormContent(e.target.value)}></textarea>
+        <button type="submit">SUBMIT</button>
+      </form>
         {Data
           ? Data.map((item) => (
             <div key={item._id} className="dataContainer">
@@ -91,10 +101,6 @@ export default function Dashboard() {
               </div>
       ))
           : ""}
-      <form onSubmit={(e) => submitData(e)} className="dataContainer2">
-        <textarea placeholder="Enter Data" value={formContent} onChange={(e) => setFormContent(e.target.value)}></textarea>
-        <button type="submit">SUBMIT</button>
-      </form>
     </div>
     </div >
   );
